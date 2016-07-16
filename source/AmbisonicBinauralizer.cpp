@@ -13,6 +13,7 @@
 /*############################################################################*/
 
 
+#include <algorithm>
 #include "AmbisonicBinauralizer.h"
 
 
@@ -306,15 +307,25 @@ void CAmbisonicBinauralizer::ArrangeSpeakers()
 	m_AmbDecoder.Refresh();
 }
 
+template <typename T>
+static void clear(T* a, size_t n)
+{
+	std::fill(a, a+n, T());
+}
+
 void CAmbisonicBinauralizer::AllocateBuffers()
 {
 	//Allocate scratch buffers
 	m_pfScratchBufferA = new AmbFloat[m_nFFTSize];
+	clear(m_pfScratchBufferA, m_nFFTSize);
 	m_pfScratchBufferB = new AmbFloat[m_nFFTSize];
+	clear(m_pfScratchBufferB, m_nFFTSize);
 
 	//Allocate overlap-add buffers
 	m_pfOverlap[0] = new AmbFloat[m_nOverlapLength];
+	clear(m_pfOverlap[0], m_nOverlapLength);
 	m_pfOverlap[1] = new AmbFloat[m_nOverlapLength];
+	clear(m_pfOverlap[1], m_nOverlapLength);
 
 	//Allocate FFT and iFFT for new size
 	m_pFFT_cfg = kiss_fftr_alloc(m_nFFTSize, 0, 0, 0);
@@ -324,11 +335,16 @@ void CAmbisonicBinauralizer::AllocateBuffers()
 	for(AmbUInt niEar = 0; niEar < 2; niEar++)
 	{
 		m_ppcpFilters[niEar] = new kiss_fft_cpx*[m_nChannelCount];
+		clear(m_ppcpFilters[niEar], m_nChannelCount);
 		for(AmbUInt niChannel = 0; niChannel < m_nChannelCount; niChannel++)
+		{
 			m_ppcpFilters[niEar][niChannel] = new kiss_fft_cpx[m_nFFTBins];
+			clear(m_ppcpFilters[niEar][niChannel], m_nFFTBins);
+		}
 	}
 
 	m_pcpScratch = new kiss_fft_cpx[m_nFFTBins];
+	clear(m_pcpScratch, m_nFFTBins);
 }
 
 void CAmbisonicBinauralizer::DeallocateBuffers()
