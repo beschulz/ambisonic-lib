@@ -42,7 +42,7 @@ void CAmbisonicEncoder::Refresh()
 	CAmbisonicSource::Refresh();
 }
 
-void CAmbisonicEncoder::Process(AmbFloat* pfSrc, AmbUInt nSamples, CBFormat* pfDst)
+void CAmbisonicEncoder::Process(const AmbFloat *pfSrc, AmbUInt nSamples, CBFormat *pfDst)
 {
 	AmbUInt niChannel = 0;
 	AmbUInt niSample = 0;

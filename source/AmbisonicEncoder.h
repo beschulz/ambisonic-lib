@@ -42,7 +42,7 @@ public:
 	/**
 		Encode mono stream to B-Format.
 	*/
-	void Process(AmbFloat* pfSrc, AmbUInt nSamples, CBFormat* pBFDst);
+	void Process(const AmbFloat *pfSrc, AmbUInt nSamples, CBFormat *pBFDst);
 };
 
 #endif // _AMBISONIC_ENCODER_H

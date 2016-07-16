@@ -87,7 +87,7 @@ void CAmbisonicEncoderDist::Refresh()
 	}
 }
 
-void CAmbisonicEncoderDist::Process(AmbFloat* pfSrc, AmbUInt nSamples, CBFormat* pfDst)
+void CAmbisonicEncoderDist::Process(const AmbFloat *pfSrc, AmbUInt nSamples, CBFormat *pfDst)
 {
 	AmbUInt niChannel = 0;
 	AmbUInt niSample = 0;
