@@ -54,3 +54,16 @@ void CAmbisonicEncoder::Process(const AmbFloat *pfSrc, AmbUInt nSamples, CBForma
 		}
 	}
 }
+
+void CAmbisonicEncoder::ProcessAdditive(const AmbFloat *pfSrc, AmbUInt nSamples, CBFormat *pfDst)
+{
+	AmbUInt niChannel = 0;
+	AmbUInt niSample = 0;
+	for(niChannel = 0; niChannel < m_nChannelCount; niChannel++)
+	{
+		for(niSample = 0; niSample < nSamples; niSample++)
+		{
+			pfDst->m_ppfChannels[niChannel][niSample] = pfSrc[niSample] * m_pfCoeff[niChannel];
+		}
+	}
+}

@@ -43,6 +43,11 @@ public:
 		Encode mono stream to B-Format.
 	*/
 	void Process(const AmbFloat *pfSrc, AmbUInt nSamples, CBFormat *pBFDst);
+
+	/**
+    	Encode mono stream to B-Format. Additive.
+	*/
+	void ProcessAdditive(const AmbFloat *pfSrc, AmbUInt nSamples, CBFormat *pBFDst);
 };
 
 #endif // _AMBISONIC_ENCODER_H
